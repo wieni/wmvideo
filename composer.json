@@ -1,0 +1,14 @@
+{
+    "name": "wieni/wmvideo",
+    "description": "Converting a YouTube or Vimeo URL to an embedded player",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jelte Liekens",
+            "email": "jelte@wieni.be"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "type": "drupal-module"
+}
