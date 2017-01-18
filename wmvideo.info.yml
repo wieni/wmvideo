@@ -1,0 +1,5 @@
+name: Wieni Video
+type: module
+description: Converting a YouTube or Vimeo URL to an embedded player
+core: 8.x
+package: Wieni

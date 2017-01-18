@@ -1,0 +1,5 @@
+services:
+  wmvideo.twig.VideoEmbedExtension:
+    class: Drupal\wmvideo\TwigExtension\VideoEmbedExtension
+    tags:
+      - { name: twig.extension }
