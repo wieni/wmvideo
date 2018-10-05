@@ -3,3 +3,19 @@ services:
     class: Drupal\wmvideo\TwigExtension\VideoEmbedExtension
     tags:
       - { name: twig.extension }
+
+  wmvideo.url_parser:
+    class: Drupal\wmvideo\Service\UrlParser
+
+  wmvideo.url_builder:
+    class: Drupal\wmvideo\Service\UrlBuilder
+
+  wmvideo.video_info:
+    class: Drupal\wmvideo\Service\VideoInfo
+    arguments:
+        - '@wmvideo.url_parser'
+
+  wmvideo.url_builder.embed:
+    class: Drupal\wmvideo\Service\EmbedUrlBuilder
+    arguments:
+        - '@language_manager'
