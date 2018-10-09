@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wmcustom\Plugin\Validation\Constraint;
+namespace Drupal\wmvideo\Plugin\Validation\Constraint;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Field\FieldItemInterface;
