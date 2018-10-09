@@ -21,7 +21,7 @@ class VideoInfo
      * @param string $url
      * @return bool|null
      */
-    protected function validate($url)
+    public function validate($url)
     {
         $json = $this->getInfo($url);
         return $json && !empty($json['type']);
@@ -35,8 +35,8 @@ class VideoInfo
      */
     public function getInfo($videoUrl)
     {
-        $response = file_get_contents($this->getOembedUrl($videoUrl));
-        return @json_decode($response, true);
+        $response = @file_get_contents($this->getOembedUrl($videoUrl));
+        return $response ? @json_decode($response, true) : null;
     }
 
     protected function getOembedUrl($videoUrl)
