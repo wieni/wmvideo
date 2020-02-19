@@ -3,34 +3,50 @@
 namespace Drupal\wmvideo\Service;
 
 use Drupal\wmvideo\VideoEmbedder;
+use function GuzzleHttp\Psr7\parse_query;
 
 class UrlParser
 {
+    const DOMAINS = [
+        VideoEmbedder::WM_EMBED_TYPE_YOUTUBE => [
+            'www.youtube.com',
+            'youtube.com',
+            'youtu.be',
+        ],
+        VideoEmbedder::WM_EMBED_TYPE_VIMEO => [
+            'www.vimeo.com',
+            'vimeo.com',
+        ],
+    ];
+
     public function parse($url)
     {
         $type = null;
         $vid = null;
 
-        // Adapted from wm_gallery module.
-        if (preg_match('/youtu\.?be/i', $url)) {
-            // Stolen from YouTube Field module.
-            $regexp = array(
-                '/youtube\.com\/watch\?v=([a-z0-9\-_]+)/i',
-                '/youtu.be\/([a-z0-9\-_]+)/i',
-                '/youtube\.com\/v\/([a-z0-9\-_]+)/i',
-                '/youtube\.com\/embed\/([a-z0-9\-_]+)/i',
-            );
+        if (!$url = parse_url($url)) {
+            return [$type, $vid];
+        }
 
-            foreach ($regexp as $regex) {
-                if (preg_match($regex, $url, $matches)) {
-                    $vid = $matches[1];
-                    $type = VideoEmbedder::WM_EMBED_TYPE_YOUTUBE;
-                    break;
-                }
+        if (isset($url['query'])) {
+            $url['query'] = parse_query($url['query']);
+        }
+
+        if (in_array($url['host'], self::DOMAINS[VideoEmbedder::WM_EMBED_TYPE_YOUTUBE], true)) {
+            $type = VideoEmbedder::WM_EMBED_TYPE_YOUTUBE;
+
+            if ($url['host'] === 'youtu.be') {
+                $vid = trim($url['path'], '/');
+            } elseif (strpos($url['path'], '/embed') !== false) {
+                $vid = str_replace('/embed/', '', $url['path']);
+            } elseif (isset($url['query']['v'])) {
+                $vid = $url['query']['v'];
             }
-        } elseif (preg_match('/vimeo\.(.*?)\/([0-9]+)/i', $url, $match) && isset($match[2])) {
-            $vid = $match[2];
+        }
+
+        if (in_array($url['host'], self::DOMAINS[VideoEmbedder::WM_EMBED_TYPE_VIMEO], true)) {
             $type = VideoEmbedder::WM_EMBED_TYPE_VIMEO;
+            $vid = trim($url['path'], '/');
         }
 
         return [$type, $vid];
