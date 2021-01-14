@@ -45,7 +45,7 @@ class VideoInfo
         list($type) = $this->urlParser->parse($videoUrl);
 
         if ($type === VideoEmbedder::WM_EMBED_TYPE_YOUTUBE) {
-            $format = 'http://www.youtube.com/oembed?url=%s&format=json';
+            $format = 'https://www.youtube.com/oembed?url=%s&format=json';
         } else if ($type === VideoEmbedder::WM_EMBED_TYPE_VIMEO) {
             $format = 'https://vimeo.com/api/oembed.json?url=%s';
         } else {
