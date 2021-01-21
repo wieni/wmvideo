@@ -13,6 +13,8 @@ services:
   wmvideo.video_info:
     class: Drupal\wmvideo\Service\VideoInfo
     arguments:
+        - '@request_stack'
+        - '@http_client'
         - '@wmvideo.url_parser'
 
   wmvideo.url_builder.embed:

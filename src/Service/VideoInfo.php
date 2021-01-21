@@ -3,15 +3,26 @@
 namespace Drupal\wmvideo\Service;
 
 use Drupal\wmvideo\VideoEmbedder;
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class VideoInfo
 {
+    /** @var RequestStack */
+    protected $requestStack;
+    /** @var Client */
+    protected $client;
     /** @var UrlParser */
     protected $urlParser;
 
     public function __construct(
+        RequestStack $requestStack,
+        Client $client,
         UrlParser $urlParser
     ) {
+        $this->requestStack = $requestStack;
+        $this->client = $client;
         $this->urlParser = $urlParser;
     }
 
@@ -35,8 +46,21 @@ class VideoInfo
      */
     public function getInfo($videoUrl)
     {
-        $response = @file_get_contents($this->getOembedUrl($videoUrl));
-        return $response ? @json_decode($response, true) : null;
+        $url = $this->getOembedUrl($videoUrl);
+        $options = [];
+
+        if ($request = $this->requestStack->getCurrentRequest()) {
+            $options[RequestOptions::HEADERS]['Referer'] = $request->getUri();
+        }
+
+        try {
+            $response = $this->client->get($url, $options);
+            $body = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+        } catch (\Exception $e) {
+            return null;
+        }
+
+        return $body;
     }
 
     protected function getOembedUrl($videoUrl)
