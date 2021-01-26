@@ -47,7 +47,12 @@ class UrlParser
 
         if (isset($url['path']) && in_array($url['host'], self::DOMAINS[VideoEmbedder::WM_EMBED_TYPE_VIMEO], true)) {
             $type = VideoEmbedder::WM_EMBED_TYPE_VIMEO;
-            $vid = trim($url['path'], '/');
+
+            if (strpos($url['path'], '/video') !== false) {
+                $vid = str_replace('/video/', '', $url['path']);
+            } else {
+                $vid = trim($url['path'], '/');
+            }
         }
 
         return [$type, $vid];
