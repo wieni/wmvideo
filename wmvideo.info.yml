@@ -4,3 +4,6 @@ description: Converting a YouTube or Vimeo URL to an embedded player
 package: Wieni
 core: 8.x
 core_version_requirement: ^8 || ^9
+dependencies:
+    - link
+    - filter
