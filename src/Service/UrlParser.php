@@ -3,11 +3,11 @@
 namespace Drupal\wmvideo\Service;
 
 use Drupal\wmvideo\VideoEmbedder;
-use function GuzzleHttp\Psr7\parse_query;
+use GuzzleHttp\Psr7\Query;
 
 class UrlParser
 {
-    const DOMAINS = [
+    protected const DOMAINS = [
         VideoEmbedder::WM_EMBED_TYPE_YOUTUBE => [
             'www.youtube.com',
             'youtube.com',
@@ -19,7 +19,7 @@ class UrlParser
         ],
     ];
 
-    public function parse($url)
+    public function parse($url): array
     {
         $type = null;
         $vid = null;
@@ -30,7 +30,7 @@ class UrlParser
         }
 
         if (isset($url['query'])) {
-            $url['query'] = parse_query($url['query']);
+            $url['query'] = Query::parse($url['query']);
         }
 
         if (in_array($url['host'], self::DOMAINS[VideoEmbedder::WM_EMBED_TYPE_YOUTUBE], true)) {

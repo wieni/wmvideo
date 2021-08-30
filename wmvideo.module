@@ -1,53 +1,44 @@
 <?php
 
 /**
- * @file
- * Contains wmvideo.module..
+ * Implements @see hook_help().
  */
-
-use Drupal\Core\Routing\RouteMatchInterface;
-
-/**
- * Implements hook_help().
- */
-function wmvideo_help($route_name, RouteMatchInterface $route_match)
+function wmvideo_help(string $route_name): ?string
 {
-    switch ($route_name) {
-        // Main module help for the wmvideo module.
-        case 'help.page.wmvideo':
-            $output = '';
-            $output .= '<h3>' . t('About') . '</h3>';
-            $output .= '<p>' . t('Converting a YouTube or Vimeo URL to an embedded player') . '</p>';
-            
-            return $output;
-        
-        default:
+    if ($route_name !== 'help.page.wmvideo') {
+        return null;
     }
+
+    $output = '';
+    $output .= '<h3>' . t('About') . '</h3>';
+    $output .= '<p>' . t('Converting a YouTube or Vimeo URL to an embedded player') . '</p>';
+
+    return $output;
 }
 
 /**
- * Implements hook_theme().
+ * Implements @see hook_theme().
  */
-function wmvideo_theme($existing, $type, $theme, $path)
+function wmvideo_theme(): array
 {
-    return array(
-        'wmvideo_youtube' => array(
-            'variables' => array(
-                'vid' => NULL,
+    return [
+        'wmvideo_youtube' => [
+            'variables' => [
+                'vid' => null,
                 'width' => 640,
                 'height' => 360,
                 'lang' => 'en',
-                'origin' => NULL,
-                'autoplay' => FALSE,
-            ),
-        ),
-        'wmvideo_vimeo' => array(
-            'variables' => array(
-                'vid' => NULL,
+                'origin' => null,
+                'autoplay' => false,
+            ],
+        ],
+        'wmvideo_vimeo' => [
+            'variables' => [
+                'vid' => null,
                 'width' => 640,
                 'height' => 360,
-                'autoplay' => FALSE,
-            ),
-        ),
-    );
+                'autoplay' => false,
+            ],
+        ],
+    ];
 }

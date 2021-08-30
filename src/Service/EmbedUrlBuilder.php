@@ -16,7 +16,7 @@ class EmbedUrlBuilder
         $this->languageManager = $languageManager;
     }
 
-    public function build($type, $vid, $options = [])
+    public function build($type, $vid, $options = []): ?string
     {
         global $base_url;
         $langcode = $this->languageManager->getCurrentLanguage()->getId();
@@ -33,7 +33,7 @@ class EmbedUrlBuilder
                 'wmode' => 'opaque',
                 'autoplay' => 0,
             ];
-        } else if ($type === VideoEmbedder::WM_EMBED_TYPE_VIMEO) {
+        } elseif ($type === VideoEmbedder::WM_EMBED_TYPE_VIMEO) {
             $format = 'https://player.vimeo.com/video/%s?%s';
             $query = [
                 'portrait' => 0,

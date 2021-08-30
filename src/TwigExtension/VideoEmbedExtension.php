@@ -3,39 +3,24 @@
 namespace Drupal\wmvideo\TwigExtension;
 
 use Drupal\wmvideo\VideoEmbedder;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class VideoEmbedExtension extends \Twig_Extension
+class VideoEmbedExtension extends AbstractExtension
 {
-    
-    /**
-     * {@inheritdoc}
-     * This function must return the name of the extension. It must be unique.
-     */
-    public function getName()
+    public function getFunctions(): array
     {
-        return 'embedVideo';
-    }
-    
-    /**
-     * In this function we can declare the extension function
-     */
-    public function getFunctions()
-    {
-        return array(
-            new \Twig_SimpleFunction(
+        return [
+            new TwigFunction(
                 'embedVideo',
-                array($this, 'embedVideo'),
-                array('is_safe' => array('html'))
+                [$this, 'embedVideo'],
+                ['is_safe' => ['html']]
             ),
-        );
+        ];
     }
-    
-    public function embedVideo(
-        $url,
-        $autoplay = false,
-        $width = 640,
-        $height = 360
-    ) {
+
+    public function embedVideo($url, $autoplay = false, $width = 640, $height = 360): ?array
+    {
         return VideoEmbedder::create($url, $autoplay, $width, $height);
     }
 }
