@@ -2,6 +2,8 @@
 
 namespace Drupal\wmvideo\Plugin\Filter;
 
+use Drupal\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
 
@@ -15,6 +17,21 @@ use Drupal\filter\Plugin\FilterBase;
  */
 class EmbedVimeoFilter extends FilterBase
 {
+    /** @var RendererInterface */
+    protected $renderer;
+
+    public static function create(
+        ContainerInterface $container,
+        array $configuration,
+        $plugin_id,
+        $plugin_definition
+    ) {
+        $instance = new static($configuration, $plugin_id, $plugin_definition);
+        $instance->renderer = $container->get('renderer');
+
+        return $instance;
+    }
+
     public function process($text, $langcode): FilterProcessResult
     {
         $new_text = preg_replace_callback("|\[vimeo:([^]]*)\]|i", 'self::replace', $text);
@@ -38,6 +55,6 @@ class EmbedVimeoFilter extends FilterBase
             '#height' => $height,
         ];
 
-        return render($build);
+        return $this->renderer->render($build);
     }
 }
