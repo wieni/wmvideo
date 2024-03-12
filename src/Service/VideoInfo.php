@@ -4,6 +4,7 @@ namespace Drupal\wmvideo\Service;
 
 use Drupal\wmvideo\VideoEmbedder;
 use GuzzleHttp\Client;
+use GuzzleHttp\Utils;
 use function GuzzleHttp\json_decode;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -46,7 +47,7 @@ class VideoInfo
 
         try {
             $response = $this->client->get($url, $options);
-            $body = json_decode($response->getBody()->getContents(), true);
+            $body = Utils::jsonDecode($response->getBody()->getContents(), true);
         } catch (\Exception $e) {
             return null;
         }
