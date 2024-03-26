@@ -5,9 +5,10 @@ namespace Drupal\wmvideo;
 class VideoEmbedder
 {
     public const WM_EMBED_TYPE_YOUTUBE = 'youtube';
+    public const WM_EMBED_TYPE_YOUTUBE_SHORT = 'youtube_short';
     public const WM_EMBED_TYPE_VIMEO = 'vimeo';
 
-    public static function create($url, $autoplay = false, $width = 640, $height = 360): ?array
+    public static function create($url, $autoplay = false, ?int $width = null, ?int $height = null): ?array
     {
         [$type, $vid] = \Drupal::service('wmvideo.url_parser')->parse($url);
 
@@ -15,10 +16,13 @@ class VideoEmbedder
             return null;
         }
 
+        $width = $width ?? ($type === self::WM_EMBED_TYPE_YOUTUBE_SHORT ? 360 : 640);
+        $height = $height ?? ($type === self::WM_EMBED_TYPE_YOUTUBE_SHORT ? 640 : 360);
+
         $build = null;
         $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
-        if ($type === self::WM_EMBED_TYPE_YOUTUBE) {
+        if (\in_array($type, [self::WM_EMBED_TYPE_YOUTUBE, self::WM_EMBED_TYPE_YOUTUBE_SHORT], true)) {
             global $base_url;
             $domain = $base_url;
             $build = [

@@ -40,6 +40,9 @@ class UrlParser
                 $vid = trim($url['path'], '/');
             } elseif (isset($url['path']) && strpos($url['path'], '/embed') !== false) {
                 $vid = str_replace('/embed/', '', $url['path']);
+            } elseif (isset($url['path']) && strpos($url['path'], '/shorts') !== false) {
+                $vid = str_replace('/shorts/', '', $url['path']);
+                $type = VideoEmbedder::WM_EMBED_TYPE_YOUTUBE_SHORT;
             } elseif (isset($url['query']['v'])) {
                 $vid = $url['query']['v'];
             }
