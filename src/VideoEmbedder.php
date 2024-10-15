@@ -35,6 +35,10 @@ class VideoEmbedder
                 '#domain' => $domain,
                 '#disablekb' => $disableKeyboard ? '1' : '0',
             ];
+
+            if ($title) {
+                $build['#title'] = $title;
+            }
         }
 
         if ($type === self::WM_EMBED_TYPE_VIMEO) {
@@ -46,6 +50,10 @@ class VideoEmbedder
                 '#autoplay' => $autoplay,
                 '#keyboard' => $disableKeyboard ? 'false' : 'true',
             ];
+
+            if ($title) {
+                $build['#title'] = $title;
+            }
         }
 
         if (is_array($build)) {

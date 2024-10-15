@@ -31,6 +31,7 @@ function wmvideo_theme(): array
                 'origin' => null,
                 'autoplay' => false,
                 'disablekb' => '1',
+                'title' => "",
             ],
         ],
         'wmvideo_vimeo' => [
@@ -40,6 +41,7 @@ function wmvideo_theme(): array
                 'height' => 360,
                 'autoplay' => false,
                 'keyboard' => 'false',
+                'title' => "",
             ],
         ],
     ];
