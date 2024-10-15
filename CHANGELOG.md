@@ -8,9 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Support GuzzleHttp versions below 8.0
 - Support Drupal ^9.3
-- Add title attribute to iframe tag
-- Add `keyboard` query parameter to vimeo embed URL
-- Add `disablekb` attribute to YouTube iframe
+- `embedVideo` twig function now allows adding `title` attribute to iframe tag
+- `embedVideo` twig function now allows you to disable keyboard to prevent interference with help technology
+    - Add `keyboard` query parameter to vimeo embed URL
+    - Add `disablekb` attribute to YouTube iframe
 
 ## [1.4.0] - 2024-03-25
 ### Added
