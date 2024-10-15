@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.5.0] - 2024-10-15
 ### Added
-- Support GuzzleHttp versions bellow 8.0
+- Support GuzzleHttp versions below 8.0
 - Support Drupal ^9.3
 - Add title attribute to iframe tag
 - Add `keyboard` query parameter to vimeo embed URL
