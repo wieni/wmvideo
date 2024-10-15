@@ -5,7 +5,6 @@ namespace Drupal\wmvideo\Service;
 use Drupal\wmvideo\VideoEmbedder;
 use GuzzleHttp\Client;
 use GuzzleHttp\Utils;
-use function GuzzleHttp\json_decode;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\HttpFoundation\RequestStack;
 
