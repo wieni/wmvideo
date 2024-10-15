@@ -53,6 +53,7 @@ class EmbedVimeoFilter extends FilterBase
             '#vid' => $vid,
             '#width' => $width,
             '#height' => $height,
+            '#keyboard' => 'false',
         ];
 
         return $this->renderer->render($build);

@@ -19,8 +19,8 @@ class VideoEmbedExtension extends AbstractExtension
         ];
     }
 
-    public function embedVideo($url, $autoplay = false, $width = 640, $height = 360): ?array
+    public function embedVideo($url, $autoplay = false, $width = 640, $height = 360, $disableKeyboard = true): ?array
     {
-        return VideoEmbedder::create($url, $autoplay, $width, $height);
+        return VideoEmbedder::create($url, $autoplay, $width, $height, $disableKeyboard);
     }
 }

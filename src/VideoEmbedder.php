@@ -8,7 +8,7 @@ class VideoEmbedder
     public const WM_EMBED_TYPE_YOUTUBE_SHORT = 'youtube_short';
     public const WM_EMBED_TYPE_VIMEO = 'vimeo';
 
-    public static function create($url, $autoplay = false, ?int $width = null, ?int $height = null): ?array
+    public static function create($url, $autoplay = false, ?int $width = null, ?int $height = null, bool $disableKeyboard = true, ?string $title = null): ?array
     {
         [$type, $vid] = \Drupal::service('wmvideo.url_parser')->parse($url);
 
@@ -33,6 +33,7 @@ class VideoEmbedder
                 '#autoplay' => $autoplay,
                 '#lang' => $lang,
                 '#domain' => $domain,
+                '#disablekb' => $disableKeyboard ? '1' : '0',
             ];
         }
 
@@ -43,6 +44,7 @@ class VideoEmbedder
                 '#width' => $width,
                 '#height' => $height,
                 '#autoplay' => $autoplay,
+                '#keyboard' => $disableKeyboard ? 'false' : 'true',
             ];
         }
 
