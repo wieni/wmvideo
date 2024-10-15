@@ -16,6 +16,14 @@ installed using Composer:
  composer require wieni/wmvideo
 ```
 
+## Usage in twig
+example:
+
+```twig
+{# parameters: $url, $autoplay = false, $width = 640, $height = 360, $disableKeyboard = true, $title = null #}
+{{ embedVideo(video.getLink(), false, 640, 360, true, video.getTitle()) }}
+```
+
 ## Changelog
 All notable changes to this project will be documented in the
 [CHANGELOG](CHANGELOG.md) file.
