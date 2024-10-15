@@ -47,7 +47,11 @@ class VideoInfo
 
         try {
             $response = $this->client->get($url, $options);
-            $body = Utils::jsonDecode($response->getBody()->getContents(), true);
+            if (method_exists(Utils::class, 'jsonDecode')) {
+                $body = Utils::jsonDecode($response->getBody()->getContents(), true);
+            } else {
+                $body = json_decode($response->getBody()->getContents(), true);
+            }
         } catch (\Exception $e) {
             return null;
         }

@@ -68,6 +68,7 @@ class EmbedYouTubeFilter extends FilterBase
             '#height' => $height,
             '#lang' => $lang,
             '#domain' => $domain,
+            '#disablekb' => '1',
         ];
 
         return $this->renderer->render($build);
