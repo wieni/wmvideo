@@ -53,6 +53,8 @@ class UrlParser
 
             if (preg_match('#^/video/(?<vid>.+)#', $url['path'], $matches)) {
                 $vid = $matches['vid'];
+            } elseif (preg_match('#^/groups/\d+/videos/(?<vid>.+)#', $url['path'], $matches)) {
+                $vid = $matches['vid'];
             } elseif (preg_match('#^/(?<vid>.+)/.+$#', $url['path'], $matches)) {
                 $vid = $matches['vid'];
             } else {
