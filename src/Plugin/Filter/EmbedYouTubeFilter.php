@@ -2,10 +2,10 @@
 
 namespace Drupal\wmvideo\Plugin\Filter;
 
-use Drupal\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @Filter(
