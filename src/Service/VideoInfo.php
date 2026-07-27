@@ -4,8 +4,6 @@ namespace Drupal\wmvideo\Service;
 
 use Drupal\wmvideo\VideoEmbedder;
 use GuzzleHttp\Client;
-use GuzzleHttp\Utils;
-use function GuzzleHttp\json_decode;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -47,7 +45,11 @@ class VideoInfo
 
         try {
             $response = $this->client->get($url, $options);
-            $body = Utils::jsonDecode($response->getBody()->getContents(), true);
+            // Guzzle's Utils::jsonDecode() is deprecated and is removed in
+            // guzzlehttp/guzzle:8.0. json_decode() with JSON_THROW_ON_ERROR is
+            // equivalent here: the JsonException it throws on a malformed body
+            // is caught below, just like Guzzle's InvalidArgumentException was.
+            $body = json_decode($response->getBody()->getContents(), true, 512, \JSON_THROW_ON_ERROR);
         } catch (\Exception $e) {
             return null;
         }
