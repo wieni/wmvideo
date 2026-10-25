@@ -3,19 +3,19 @@
 namespace Drupal\wmvideo\Plugin\Filter;
 
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\filter\Attribute\Filter;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
+use Drupal\filter\Plugin\FilterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * @Filter(
- *     id = "filter_youtube_embed",
- *     title = @Translation("Embed YouTube elements"),
- *     description = @Translation("Allows you to embed YouTube elements using [youtube:videoid]
- *      or [youtube:http://youtube.com/watch?v=videoid]."),
- *     type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
- * )
- */
+#[Filter(
+    id: 'filter_youtube_embed',
+    title: new TranslatableMarkup('Embed YouTube elements'),
+    type: FilterInterface::TYPE_MARKUP_LANGUAGE,
+    description: new TranslatableMarkup('Allows you to embed YouTube elements using [youtube:videoid] or [youtube:http://youtube.com/watch?v=videoid].'),
+)]
 class EmbedYouTubeFilter extends FilterBase
 {
     protected $renderer;
@@ -34,7 +34,7 @@ class EmbedYouTubeFilter extends FilterBase
 
     public function process($text, $langcode): FilterProcessResult
     {
-        $new_text = preg_replace_callback("|\[youtube:([^]]*)\]|i", 'self::replace', $text);
+        $new_text = preg_replace_callback("|\[youtube:([^]]*)\]|i", [$this, 'replace'], $text);
         return new FilterProcessResult($new_text);
     }
 
