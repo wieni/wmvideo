@@ -2,19 +2,17 @@
 
 namespace Drupal\wmvideo\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\wmvideo\VideoEmbedder;
 
-/**
- * @FieldFormatter(
- *     id = "video_embed_formatter",
- *     label = @Translation("Video Embed"),
- *     field_types = {
- *         "link"
- *     }
- * )
- */
+#[FieldFormatter(
+    id: 'video_embed_formatter',
+    label: new TranslatableMarkup('Video Embed'),
+    field_types: ['link'],
+)]
 class VideoEmbedFormatter extends FormatterBase
 {
     public function viewElements(FieldItemListInterface $items, $langcode): array

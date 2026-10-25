@@ -3,18 +3,19 @@
 namespace Drupal\wmvideo\Plugin\Filter;
 
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\filter\Attribute\Filter;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
+use Drupal\filter\Plugin\FilterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * @Filter(
- *     id = "filter_vimeo_embed",
- *     title = @Translation("Embed Vimeo elements"),
- *     description = @Translation("Allows you to embed Vimeo elements using [vimeo:videoid] or [vimeo:http://vimeo.com/videoid]"),
- *     type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
- * )
- */
+#[Filter(
+    id: 'filter_vimeo_embed',
+    title: new TranslatableMarkup('Embed Vimeo elements'),
+    type: FilterInterface::TYPE_MARKUP_LANGUAGE,
+    description: new TranslatableMarkup('Allows you to embed Vimeo elements using [vimeo:videoid] or [vimeo:http://vimeo.com/videoid]'),
+)]
 class EmbedVimeoFilter extends FilterBase
 {
     /** @var RendererInterface */

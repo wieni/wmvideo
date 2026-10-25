@@ -2,21 +2,20 @@
 
 namespace Drupal\wmvideo\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\link\Plugin\Field\FieldWidget\LinkWidget;
 
 /**
  * Plugin implementation of the 'video_embed_widget' widget.
- *
- * @FieldWidget(
- *     id = "video_embed_widget",
- *     label = @Translation("Video Embed"),
- *     field_types = {
- *         "link"
- *     }
- * )
  */
+#[FieldWidget(
+    id: 'video_embed_widget',
+    label: new TranslatableMarkup('Video Embed'),
+    field_types: ['link'],
+)]
 class VideoEmbedWidget extends LinkWidget
 {
     public static function defaultSettings(): array
