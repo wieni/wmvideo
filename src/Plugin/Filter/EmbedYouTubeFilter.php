@@ -34,7 +34,7 @@ class EmbedYouTubeFilter extends FilterBase
 
     public function process($text, $langcode): FilterProcessResult
     {
-        $new_text = preg_replace_callback("|\[youtube:([^]]*)\]|i", 'self::replace', $text);
+        $new_text = preg_replace_callback("|\[youtube:([^]]*)\]|i", [$this, 'replace'], $text);
         return new FilterProcessResult($new_text);
     }
 
